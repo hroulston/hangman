@@ -29,20 +29,23 @@ puts blanked_word = display_secret_word(key_word)
 
 
 
-def guess_check(key, blank)
+def user_guess
     puts "Guess a letter"
     answer = gets.chomp
+    answer.downcase
+end
 
-    array_key_word = key.split("")
+    array_key_word = key_word.split("")
     # array_blanked_key_word = blank.split("")
 
     array_key_word.each_with_index do |letter, indx|
         indx_data = {}
-        if answer.downcase == letter
+        if  user_guess() == letter
             indx_data[indx] = letter
+            puts indx_data
+        else
+            user_guess()
         end
-        indx_data
     end
-end
-puts guess_check(key_word, blanked_word)
+
 puts "Hangman Game"
