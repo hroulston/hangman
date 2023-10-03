@@ -24,33 +24,36 @@ end
 # Figuring out logic to get letter from user and check if 
 # that letter is in the secret word, then display letter
 # position to the user.
+
 key_word = secret_word()
 blanked_word = display_secret_word(key_word)
+puts blanked_word
 
+ def user_guess
+    puts "Guess a letter."
+    answer = gets.chomp
+    answer.downcase
+ end
 
-
-if blanked_word != key_word
-        puts blanked_word
-        puts "Guess a letter."
-        answer = gets.chomp
-        answer.downcase
-
-        array_key_word = key_word.split("")
-        array_blanked_key_word = blanked_word.split("")
-        indx_data = {}
-
-        array_key_word.each_with_index do |letter, indx|
-            indx_data = {}
-            if  answer == letter
-                indx_data[indx] = letter
-            end
-        end
-
-        indx_data.each do |key, value|
-            array_blanked_key_word[key] = value
-            blanked_word = array_blanked_key_word.join("")
-            puts blanked_word
-        end
+def key_word_array(key)
+    array_key_word = key_word.split("")
 end
+def guess_word
+    answer = user_guess()
+    indx_data = {}
+
+    array_key_word.each_with_index do |letter, indx|
+        if  answer == letter
+            indx_data[indx] = letter
+        end
+    end
+
+    indx_data.each do |key, value|
+        blanked_word[key] = value
+        blanked_word
+    end
+end
+
+puts guess_word()
 
 puts "Hangman Game"
