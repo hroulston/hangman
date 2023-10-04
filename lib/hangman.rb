@@ -1,59 +1,47 @@
+class Game
 
-# Takes file and sorts out words that are 5-12 characters long
-# Chooses a random word from the array of selected words
-def secret_word
-    contents = File.open('google-10000-english-no-swears.txt', 'r')
-    content_array = contents.readlines.map(&:chomp)
-    selected_words = []
-        content_array.each do |word|
-            if word.length >= 5 && word.length <= 12
-                selected_words.push(word)
+    def initialize
+        @key = secret_word
+        @blanked_key = display_secret_word(@key)
+    end
+
+    # Takes file and sorts out words that are 5-12 characters long
+    # Chooses a random word from the array of selected words
+    def secret_word
+        contents = File.open('google-10000-english-no-swears.txt', 'r')
+        content_array = contents.readlines.map(&:chomp)
+        selected_words = []
+            content_array.each do |word|
+                if word.length >= 5 && word.length <= 12
+                    selected_words.push(word)
+                end
+            contents.close
             end
-        contents.close
-        end
-    selected_words.sample
-end 
+        selected_words.sample
+    end 
 
-# Takes random word and blanks out letters
-# Displays _ _ _ _ to the user
-def display_secret_word(key)
-    blanked_key_word = Array.new(key.length, "_")
-    puts blanked_key_word.join(" ")
-end
-
-# Figuring out logic to get letter from user and check if 
-# that letter is in the secret word, then display letter
-# position to the user.
-
-key_word = secret_word()
-blanked_word = display_secret_word(key_word)
-puts blanked_word
-
- def user_guess
-    puts "Guess a letter."
-    answer = gets.chomp
-    answer.downcase
- end
-
-def key_word_array(key)
-    array_key_word = key_word.split("")
-end
-def guess_word
-    answer = user_guess()
-    indx_data = {}
-
-    array_key_word.each_with_index do |letter, indx|
-        if  answer == letter
-            indx_data[indx] = letter
-        end
+    # Takes random word and blanks out letters
+    # Displays _ _ _ _ to the user
+    def display_secret_word(key)
+        blanked_key_word = Array.new(key.length, "_")
+        puts blanked_key_word.join(" ")
     end
 
-    indx_data.each do |key, value|
-        blanked_word[key] = value
-        blanked_word
+    # Figuring out logic to get letter from user and check if 
+    # that letter is in the secret word, then display letter
+    # position to the user.
+
+    def user_guess
+        puts "Guess a letter."
+        answer = gets.chomp
+        answer.downcase
+     end
+
+    while @blanked_key != @key
+        
     end
+
+
+    puts "Hangman Game"
+
 end
-
-puts guess_word()
-
-puts "Hangman Game"
