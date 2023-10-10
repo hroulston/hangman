@@ -22,28 +22,44 @@ class Game
         selected_words.sample
     end 
 
-    # Takes random word and blanks out letters
-    # Displays _ _ _ _ to the user
-    def display_secret_word(key)
-        puts blanked_key_word.join(" ")
-    end
-
+   
     # Figuring out logic to get letter from user and check if 
     # that letter is in the secret word, then display letter
     # position to the user.
 
     def user_guess
         puts "Guess a letter."
-        answer = gets.chomp
-        answer.downcase
+        guess = gets.chomp
+        guess.downcase
      end
 
-    while @blanked_key != @key
+     #don't forget to write method to check validity of the guess
+    def gameplay
+        until over? do
+            guess_feedback
+            guess = user_guess
+            @key.each_with_index do |letter, indx|
+                if guess == letter
+                    @blanked_key[indx] = guess
+                    puts @blanked_key
+                    puts "Good guess!"
+                elsif guess != letter
+                    @guessed << guess
+                    @guesses -= 1
+                    puts "Try again."
+                    
+                end
+        end
+    end
 
+    def guess_feedback
+        puts "Wrong letters guessed: #{@guessed}"
+        puts "You have #{@guesses} guesses left."
+        puts @blanked_key.join(" ")
     end
 
     def over? (user_guess)
-        @blanked_key = @key || user_guess = @key
+        @blanked_key = @key
     end
 
     def end_game
