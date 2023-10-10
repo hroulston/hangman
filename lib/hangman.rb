@@ -2,7 +2,9 @@ class Game
 
     def initialize
         @key = secret_word
-        @blanked_key = display_secret_word(@key)
+        @blanked_key = Array.new(@key.length, "_")
+        @guesses = 12
+        @guessed = []
     end
 
     # Takes file and sorts out words that are 5-12 characters long
@@ -23,7 +25,6 @@ class Game
     # Takes random word and blanks out letters
     # Displays _ _ _ _ to the user
     def display_secret_word(key)
-        blanked_key_word = Array.new(key.length, "_")
         puts blanked_key_word.join(" ")
     end
 
@@ -38,7 +39,20 @@ class Game
      end
 
     while @blanked_key != @key
-        
+
+    end
+
+    def over? (user_guess)
+        @blanked_key = @key || user_guess = @key
+    end
+
+    def end_game
+        if over?
+            puts "You guessed the word!"
+            puts @key
+        elsif @guesses.zero?
+            puts "Out of guesses, game over :( "
+            puts @key
     end
 
 
