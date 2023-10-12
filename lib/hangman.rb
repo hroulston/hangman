@@ -28,6 +28,7 @@ class Game
     # position to the user.
 
     def user_guess
+        puts @blanked_key.join(" ")
         puts "Guess a letter."
         guess = gets.chomp
         guess.downcase
@@ -49,17 +50,21 @@ class Game
                     puts "Try again."
                     
                 end
+            end
         end
+    end
+
+    def valid_guess(guess)
+        @guessed.include?(guess)
     end
 
     def guess_feedback
         puts "Wrong letters guessed: #{@guessed}"
         puts "You have #{@guesses} guesses left."
-        puts @blanked_key.join(" ")
     end
 
-    def over? (user_guess)
-        @blanked_key = @key
+    def over?
+        @blanked_key == @key
     end
 
     def end_game
@@ -69,9 +74,16 @@ class Game
         elsif @guesses.zero?
             puts "Out of guesses, game over :( "
             puts @key
+        end
     end
-
-
-    puts "Hangman Game"
-
 end
+
+puts "Hangman Game"
+puts "Let's play Hangman! Would you like to:"
+puts "1) Start a new game"
+puts "2) Quit Game?"
+answer = gets.chomp
+game = answer = "1" ? Game.new : "Goodbye!"
+game.gameplay
+    
+    
