@@ -39,7 +39,7 @@ class Game
         until over? do
             guess_feedback
             guess = user_guess
-            @key.each_with_index do |letter, indx|
+            @key.split('').each_with_index do |letter, indx|
                 if guess == letter
                     @blanked_key[indx] = guess
                     puts @blanked_key
@@ -64,7 +64,7 @@ class Game
     end
 
     def over?
-        @blanked_key == @key
+        @blanked_key == @key || @guesses == 0
     end
 
     def end_game
