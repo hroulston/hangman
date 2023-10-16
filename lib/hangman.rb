@@ -60,8 +60,8 @@ class Game
         end
     end
 
-    def valid_guess(guess)
-        @guessed.include?(guess)
+    def valid_guess?(guess)
+        guess.match(/[a-z]/) && guess.length == 1
     end
 
     def guess_feedback
