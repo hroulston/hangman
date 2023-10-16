@@ -39,17 +39,23 @@ class Game
         until over? do
             guess_feedback
             guess = user_guess
-            @key.split('').each_with_index do |letter, indx|
-                if guess == letter
-                    @blanked_key[indx] = guess
-                    puts @blanked_key
-                    puts "Good guess!"
-                elsif guess != letter
-                    @guessed << guess
-                    @guesses -= 1
-                    puts "Try again."
-                    
-                end
+            if @key.include?(guess)
+                enter_guess(guess)
+            else
+                @guessed << guess
+                @guesses -= 1
+                puts "Try again."
+            end
+            end_game
+        end
+    end
+
+    def enter_guess(guess)
+        @key.split('').each_with_index do |letter, indx|
+            if guess == letter
+                @blanked_key[indx] = guess
+                puts @blanked_key.join(" ")
+                puts "Good guess!" 
             end
         end
     end
@@ -64,11 +70,11 @@ class Game
     end
 
     def over?
-        @blanked_key == @key || @guesses == 0
+        @key == @blanked_key || @guesses == 0
     end
 
     def end_game
-        if over?
+        if @key == @blanked_key
             puts "You guessed the word!"
             puts @key
         elsif @guesses.zero?
